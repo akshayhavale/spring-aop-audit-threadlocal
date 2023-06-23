@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 	public User createUser(User user) {
 
 		// Approach 2
-		ThreadLocalUtils.setThreadLocalValue("Create user is called for user : "+user.getUsername());
+		ThreadLocalUtils.setThreadLocalValue(user);
 		return userRepository.save(user);
 	}
 

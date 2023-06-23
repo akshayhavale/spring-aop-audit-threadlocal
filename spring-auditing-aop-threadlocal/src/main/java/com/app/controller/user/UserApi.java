@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.custom.annatations.EnableAuditing;
 import com.app.entity.user.User;
 import com.app.services.user.UserService;
 
+@EnableAuditing
 @RestController
 @RequestMapping(value = "/api/user")
 public class UserApi {
@@ -32,12 +34,14 @@ public class UserApi {
 		this.userService = userService;
 	}
 
+	@EnableAuditing
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody User createUser(@RequestBody User user) {
 		return userService.createUser(user);
 	}
 
+	@EnableAuditing
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody User getUserById(@PathVariable(value = "id", required = true) Long id) {

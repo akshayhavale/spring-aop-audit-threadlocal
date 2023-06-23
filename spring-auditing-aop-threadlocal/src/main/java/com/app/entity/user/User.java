@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.app.custom.annatations.AuditV;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,6 +31,7 @@ public class User {
 	@Column(name = "USER_ID")
 	private Long id;
 
+	@AuditV
 	@Column(name = "USERNAME", unique = true)
 	private String username;
 	
