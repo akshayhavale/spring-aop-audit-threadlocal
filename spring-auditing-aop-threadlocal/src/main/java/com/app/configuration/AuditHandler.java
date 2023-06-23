@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.core.annotation.Order;
@@ -63,6 +64,16 @@ public class AuditHandler {
 		Object threadLocalValue = ThreadLocalUtils.getThreadLocalValue();
 		this.saveUserLoginInfo(threadLocalValue);
 
+	}
+	
+	@AfterThrowing(pointcut = "execution(* com.app.controller.*.*.*(..))"
+			+ " && @annotation(com.app.custom.annatations.EnableAuditing)"
+			+ " && @target(com.app.custom.annatations.EnableAuditing)",throwing = "exception")
+	public void handleExceptionCase(Exception exception) {
+		System.out.println("Exception case after throwing enetered");
+		String message = exception.getMessage();
+		this.saveUserLoginInfo(message);
+		
 	}
 
 	@Async

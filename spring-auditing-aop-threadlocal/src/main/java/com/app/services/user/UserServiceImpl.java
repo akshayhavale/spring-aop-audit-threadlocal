@@ -21,9 +21,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(User user) {
 
+		user = userRepository.save(user);
 		// Approach 2
 		ThreadLocalUtils.setThreadLocalValue(user);
-		return userRepository.save(user);
+		return user;
 	}
 
 	@Override
